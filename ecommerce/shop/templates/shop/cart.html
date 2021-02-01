@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<a  class="btn btn-outline-dark" href="{% url 'shop' %}">&#x2190; Continue Shopping</a>
+
+	<div class="row">
+		
+		
+			<div class="box-element col-lg-6">
+
+				{% for item in items %}
+
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Price</strong></div>
+					<div style="flex:1"><strong>Quantity</strong></div>
+					<div style="flex:1"><strong>Total</strong></div>
+				</div>
+				
+				<div class="cart-row">
+					<div style="flex:2"><img class="row-image" src="{{item.product.imgURL}}"></div>
+					<div style="flex:2"><p>{{item.product.name}}</p></div>
+					<div style="flex:1"><p>{{ item.product.price|floatformat:2}}</p></div>
+					<div style="flex:1">
+						<p class="quantity">{{item.quantity}}</p>
+						<div class="quantity">
+							<img data-product={{item.product.id}} data-action='add' class="chg-quantity update-cart" src="{% static 'img/3+arrow-up.png' %}">
+					
+							<img data-product={{item.product.id}} data-action='remove' class="chg-quantity update-cart" src="{% static 'img/2+arrow-down.png' %}">
+						</div>
+					</div>
+					<div style="flex:1"><p>{{item.item_total}}</p></div>
+				</div>
+
+				{% endfor %}
+
+			</div>
+
+				<div class="box-element col-lg-4 ml-5">
+
+				<h1 class="text-center">Cart Total</h1>
+
+				<br>
+				<br>
+				<table class="table">
+					<tr>
+						<th><h5>Items:</th> <th><strong>{{ order.cart_item_total}}</strong></h5></th>
+						
+					</tr>
+
+					<tr>
+						
+						<th><h5>Total: </th> <th> <strong>${{ order.cart_total}}</strong></h5></th>
+						
+					</tr>
+
+					
+				</table>
+				<hr>
+
+							<a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Checkout</a>
+					
+
+			</div>
+
+			
+		
+	</div>
+
+{% endblock %}
+
